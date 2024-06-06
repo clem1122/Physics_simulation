@@ -22,11 +22,6 @@ int main(int argc, char* argv[]) {
 
     // Apply the view to the window
     window.setView(view);
-	sf::Vertex line[] =
-    {
-        sf::Vertex(sf::Vector2f(0, 30)),          // Start point of the line (left)
-        sf::Vertex(sf::Vector2f(800, 30))         // End point of the line (right)
-    };
     
 	while (window.isOpen()) {
 		sf::Event event;
@@ -35,15 +30,8 @@ int main(int argc, char* argv[]) {
                 window.close();
         }
        
-        window.draw(line, 2, sf::Lines);
-        double radius = v.getRadius();
-        sf::CircleShape circle(radius);
-        circle.setFillColor(sf::Color::Red);
-        
-        circle.setOrigin(radius, radius); // Center the circles
-        circle.setPosition(v.getPos());
-        window.draw(circle);
-        
+       
+        v.show(window);
         // Display the window
         window.display();
         v.update(dt);

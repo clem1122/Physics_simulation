@@ -32,7 +32,17 @@ void Ball::update(float dt){
 	
 	}
 
-}	
+}
+	
+void Ball::show(sf::RenderWindow& window){
+	sf::CircleShape circle(radius);
+    circle.setFillColor(sf::Color::Red);
+    circle.setOrigin(radius, radius); // Center the circles
+    circle.setPosition(pos);
+    window.draw(circle);
+
+}
+	
 	
 	
 	

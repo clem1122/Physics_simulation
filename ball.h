@@ -16,6 +16,8 @@ public:
 	~Ball();
 	
 	void update(float dt);
+	void show(sf::RenderWindow& window);
+	
 	
 	
 	sf::Vector2f getPos(){return pos;}
