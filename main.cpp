@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "ball.h"
+#include "wall.h"
 
 
 void printVector(const sf::Vector2f& vector) {
@@ -10,11 +11,14 @@ void printVector(const sf::Vector2f& vector) {
 
 int main(int argc, char* argv[]) {
 	float dt = 0.1;
+	int width = 800;
+	int height = 600;
 	if (argc == 2){dt = std::stof(argv[1]);;} 
-	Ball v = Ball(150,100,30);
+	Ball v = Ball(150,400,30);
+	Wall w = Wall(30, 300, 500, 30);
 	
 	
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Ball Simulation");
+	sf::RenderWindow window(sf::VideoMode(width, height), "Ball Simulation");
 	window.setPosition(sf::Vector2i(100, 100));
 	
 	sf::View view = window.getDefaultView();
@@ -29,13 +33,25 @@ int main(int argc, char* argv[]) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-       
-       
+       	
+       	sf::Vector2i mousePos_i= sf::Mouse::getPosition(window);
+       	mousePos_i.y = height - mousePos_i.y;
+       	sf::Vector2f mousePos(static_cast<float>(mousePos_i.x), static_cast<float>(mousePos_i.y));
+       	
+		
+		v.setPos(mousePos);
+		
+		std::cout << v.wallIntersection(w).size() << std::endl;
+		
+       	w.show(window);
         v.show(window);
+        
+        
         // Display the window
         window.display();
-        v.update(dt);
-        printVector(v.getPos());
+        if(dt);
+        //v.update(dt);
+        //printVector(v.getPos());
 
         // Sleep to control frame rate
         sf::sleep(sf::milliseconds(10));

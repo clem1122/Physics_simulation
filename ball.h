@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "wall.h"
 
 class Ball{
 private:
@@ -7,6 +8,8 @@ private:
 	sf::Vector2f previousPos;
 	sf::Vector2f acceleration;
 	double radius;
+	
+	sf::Color color;
 	
 public:
 	Ball();
@@ -17,6 +20,9 @@ public:
 	
 	void update(float dt);
 	void show(sf::RenderWindow& window);
+	
+	std::vector<sf::Vector2f> wallIntersection(Wall w);
+	void wallBounce(Wall w);
 	
 	
 	

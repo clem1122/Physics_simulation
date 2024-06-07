@@ -9,7 +9,7 @@ Wall::Wall(float x1, float y1, float x2, float y2){
 
 void Wall::show(sf::RenderWindow& window){
 	sf::Vertex line[] = {start, end};
-	 window.draw(line, 2, sf::Lines);
+	window.draw(line, 2, sf::Lines);
 }
 
 Wall::~Wall(){
