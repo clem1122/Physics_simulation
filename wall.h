@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+
 class Wall{
 private:
 	sf::Vector2f start;
@@ -14,7 +15,9 @@ public:
 	sf::Vector2f getStart(){return start;}
 	sf::Vector2f getEnd(){return end;}	
 	
-	sf::Vector2f getNormal(){return sf::Vector2f(end.y - start.y, start.x - end.x);}
+	sf::Vector2f getNormal();
+
+	sf::Vector2f getSymetricPoint(sf::Vector2f P);
 
 	~Wall();
 };

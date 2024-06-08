@@ -97,8 +97,9 @@ void Ball::wallBounce(Wall w){
 	std::vector<sf::Vector2f> points = wallIntersection(w);
 	
 	if (points.size() > 0) {
+		std::cout << "bounce" << std::endl;
 		sf::Vector2f normal = w.getNormal();
-		acceleration = normal * 10.0f;
+		acceleration = -normal;
 	}
 
 }

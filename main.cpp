@@ -38,10 +38,13 @@ int main(int argc, char* argv[]) {
        	mousePos_i.y = height - mousePos_i.y;
        	sf::Vector2f mousePos(static_cast<float>(mousePos_i.x), static_cast<float>(mousePos_i.y));
        	
+		v.setPos(w.getSymetricPoint(mousePos));
+		//v.setPos(mousePos);
 		
-		v.setPos(mousePos);
+		v.wallBounce(w);
+		printVector(v.getPos());
 		
-		std::cout << v.wallIntersection(w).size() << std::endl;
+		
 		
        	w.show(window);
         v.show(window);
@@ -50,7 +53,7 @@ int main(int argc, char* argv[]) {
         // Display the window
         window.display();
         if(dt);
-        //v.update(dt);
+        v.update(dt);
         //printVector(v.getPos());
 
         // Sleep to control frame rate
