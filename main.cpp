@@ -13,8 +13,12 @@ int main(int argc, char* argv[]) {
 	float dt = 0.1;
 	int width = 800;
 	int height = 600;
+	int nbBalls = 100;
+	
 	if (argc == 2){dt = std::stof(argv[1]);;} 
-	Ball v = Ball(150,400,30);
+	
+	Ball Balls[nbBalls];
+	
 	Wall w(30, 300, 500, 30);
 	Wall down(0, 0, width, 0);
 	Wall right(width, 0, width, height);
@@ -44,22 +48,23 @@ int main(int argc, char* argv[]) {
 		//v.setPos(w.getSymetricPoint(mousePos));
 		//v.setPos(mousePos);
 		
-		v.wallBounce(down);
-		v.wallBounce(right);
-		v.wallBounce(left);
-		v.wallBounce(w);
+		for(int i = 0; i < nbBalls;i++) {
+			Balls[i].show(window);
+			Balls[i].update(dt);
+			
+			Balls[i].wallBounce(down);
+			Balls[i].wallBounce(right);
+			Balls[i].wallBounce(left);
+			Balls[i].wallBounce(w);
+			
+		}
 		
-		printVector(v.getPos());
 		
-		
-       	w.show(window);
-        v.show(window);
-        
-        
+        w.show(window);
         // Display the window
         window.display();
         if(dt);
-        v.update(dt);
+        
         //printVector(v.getPos());
 
         // Sleep to control frame rate

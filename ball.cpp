@@ -1,18 +1,39 @@
 #include "ball.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <random>
 #include "wall.h"
 #include "cmath"
 
-Ball::Ball(){
+float getRandomFloat(float min, float max) {
+    std::random_device rd;  // Obtain a random number from hardware
+    std::mt19937 gen(rd()); // Seed the generator
+    std::uniform_real_distribution<float> dis(min, max); // Define the range
 
+    return dis(gen);
+}
+
+int getRandomInt(int min, int max) {
+    std::random_device rd;  // Obtain a random number from hardware
+    std::mt19937 gen(rd()); // Seed the generator
+    std::uniform_int_distribution<> dis(min, max); // Define the range
+
+    return dis(gen);
+}
+
+Ball::Ball(){
+	pos =  sf::Vector2f(getRandomFloat(0.0f, 800.0f), getRandomFloat(0.0f, 600.0f));
+	previousPos = pos;
+	radius = double(getRandomFloat(10.0f, 40.0f));
+	color = sf::Color(getRandomInt(0, 255), getRandomInt(0, 255), getRandomInt(0, 255));
+	acceleration = sf::Vector2f(0,-100);
 }
 
 Ball::Ball(sf::Vector2f _pos, double _radius){
 	pos = _pos;
 	previousPos = _pos;
 	radius = _radius;
-	acceleration = sf::Vector2f(10,0);
+	acceleration = sf::Vector2f(0,-100);
 	color = sf::Color(255,0,0);
 }
 
@@ -92,7 +113,6 @@ void Ball::wallBounce(Wall w){
 	std::vector<sf::Vector2f> points = wallIntersection(w);
 	
 	if (points.size() > 0) {
-		std::cout << "bounce" << std::endl;
 		sf::Vector2f normal = w.getNormal();
 		sf::Vector2f v = pos - w.getStart();
 		
