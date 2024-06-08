@@ -99,7 +99,11 @@ void Ball::wallBounce(Wall w){
 	if (points.size() > 0) {
 		std::cout << "bounce" << std::endl;
 		sf::Vector2f normal = w.getNormal();
-		acceleration = -normal;
+		sf::Vector2f v = pos - w.getStart();
+		
+		float s = sign(v.x * normal.x + v.y * normal.y);
+		pos = w.getSymetricPoint(pos) + s * 2.0f * float(radius) * normal;
+		previousPos = w.getSymetricPoint(previousPos) + s * 2.0f * float(radius) * normal;
 	}
 
 }

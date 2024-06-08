@@ -38,7 +38,7 @@ int main(int argc, char* argv[]) {
        	mousePos_i.y = height - mousePos_i.y;
        	sf::Vector2f mousePos(static_cast<float>(mousePos_i.x), static_cast<float>(mousePos_i.y));
        	
-		v.setPos(w.getSymetricPoint(mousePos));
+		//v.setPos(w.getSymetricPoint(mousePos));
 		//v.setPos(mousePos);
 		
 		v.wallBounce(w);
