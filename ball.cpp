@@ -30,12 +30,6 @@ void Ball::update(float dt){
 	pos = 2.0f * pos - previousPos + acceleration * dt * dt;
 	previousPos = temp;
 	
-	if (pos.y <= radius) {
-		pos.y = -pos.y + 2.0f * radius;
-		previousPos.y = -previousPos.y + 2.0f * radius;
-	
-	}
-
 }
 
 float sign(float x){return 2 * (x >= 0) - 1;}
@@ -65,8 +59,9 @@ std::vector<sf::Vector2f> Ball::wallIntersection(Wall w){
 		
 		float x = (D * dy) / (dr * dr) + pos.x;
 		float y = (-D * dx)/ (dr * dr) + pos.y;
-		if (x >= std::min(start.x, end.x) && x <= std::max(start.x, end.x) &&
-		    y >= std::min(start.y, end.y) && y <= std::max(start.y, end.y)) { 
+		if ((x > std::min(start.x, end.x) && x < std::max(start.x, end.x)) || 
+			(y > std::min(start.y, end.y) && x < std::max(start.y, end.y))) { 
+		    
 			return {sf::Vector2f(x,y)};
 		}
 	
@@ -78,17 +73,17 @@ std::vector<sf::Vector2f> Ball::wallIntersection(Wall w){
 		float x2 =  (D * dy - sign(dy) * dx * sqrt(delta)) / (dr * dr) + pos.x;
 		float y2 = (-D * dx - abs(dy) * sqrt(delta))/ (dr * dr) + pos.y;
 		
-		if ((x1 >= std::min(start.x, end.x) && x1 <= std::max(start.x, end.x) &&
-		     y1 >= std::min(start.y, end.y) && y1 <= std::max(start.y, end.y)) ||
-		    (x2 >= std::min(start.x, end.x) && x2 <= std::max(start.x, end.x) &&
-		     y2 >= std::min(start.y, end.y) && y2 <= std::max(start.y, end.y))) { 
-				color = sf::Color(0, 255, 0);
+		if ((x1 > std::min(start.x, end.x) && x1 < std::max(start.x, end.x)) ||
+		    (x2 > std::min(start.x, end.x) && x2 < std::max(start.x, end.x)) ||
+		    (y1 > std::min(start.y, end.y) && y1 < std::max(start.y, end.y)) ||
+		    (y2 > std::min(start.y, end.y) && y2 < std::max(start.y, end.y))) { 
+				
 				return {sf::Vector2f(x1,y1), sf::Vector2f(x2, y2)};
 		}
 	
 	} 
 	
-	color = sf::Color(255, 0, 0);
+	
 	return {};
 
 }

@@ -15,7 +15,10 @@ int main(int argc, char* argv[]) {
 	int height = 600;
 	if (argc == 2){dt = std::stof(argv[1]);;} 
 	Ball v = Ball(150,400,30);
-	Wall w = Wall(30, 300, 500, 30);
+	Wall w(30, 300, 500, 30);
+	Wall down(0, 0, width, 0);
+	Wall right(width, 0, width, height);
+	Wall left(0, 0, 0, height);
 	
 	
 	sf::RenderWindow window(sf::VideoMode(width, height), "Ball Simulation");
@@ -41,9 +44,12 @@ int main(int argc, char* argv[]) {
 		//v.setPos(w.getSymetricPoint(mousePos));
 		//v.setPos(mousePos);
 		
+		v.wallBounce(down);
+		v.wallBounce(right);
+		v.wallBounce(left);
 		v.wallBounce(w);
-		printVector(v.getPos());
 		
+		printVector(v.getPos());
 		
 		
        	w.show(window);
